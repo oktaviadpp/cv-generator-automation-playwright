@@ -1,0 +1,22 @@
+{
+  "name": "cv-generator-automation-playwright",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oktaviadpp/cv-generator-automation-playwright.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oktaviadpp/cv-generator-automation-playwright/issues"
+  },
+  "homepage": "https://github.com/oktaviadpp/cv-generator-automation-playwright#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.9"
+  }
+}
