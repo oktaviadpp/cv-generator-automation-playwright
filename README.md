@@ -1,0 +1,1 @@
+# cv-generator-automation-playwright
