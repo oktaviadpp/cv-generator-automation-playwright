@@ -16,5 +16,9 @@ test('01-generate cv without generate code and tutorial successfully', async ({p
     //Generate CV Process
     await cvGenerator.PersonalInfo();
     await cvGenerator.WorkExperience();
+    await cvGenerator.Education();
+    await cvGenerator.ProjectCertification();
+    await cvGenerator.Skill();
+    await cvGenerator.GenerateDownloadCV();
 
 });
