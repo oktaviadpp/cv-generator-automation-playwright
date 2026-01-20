@@ -18,11 +18,17 @@ export class CvGenerator {
         this.languages = page.locator("#languages");
         this.buttonMenuBuildYourCV = page.getByRole("link", {name:"Build Your CV"});
 
-        //Experience
-        
+        //Work Experience
+        this.cardExperience = page.locator("div.grid.mb-4");
+        this.buttonAdd = page.getByRole('button', { name: 'Add', exact: true });
+        this.jobTitle = page.locator('input[name$=".title"]');
+        this.company = page.locator('input[name$=".company"]');
+        this.workExperienceLocation = page.locator('input[name$=".location"]');
+        this.duration = page.locator('input[name$=".duration"]');
+        this.description = page.locator('textarea[name$=".description"]');        
     }
 
-    async BuildYourCV(){
+    async PersonalInfo(){
         await this.globals.goto();
         await this.buttonMenuBuildYourCV.click();
         await this.name.fill("Oktavia Dwi Putri Permatasari");
@@ -36,6 +42,58 @@ export class CvGenerator {
         await this.languages.fill("Indonesia");
         await this.globals.takeScreenshot('CVGenerator-personal-info');
         await this.buttonNext.click();
+    }
 
+    async WorkExperience(){
+        const experience = [
+            {
+                title : 'Quality Assurance Analyst',
+                company : "PT. METROCOM JADDI TECHNOLOGY",
+                workExperienceLocation : "JAKARTA",
+                duration : "Oct 2024 – Present",
+                description : "Developed and executed automated API test scenarios using Postman, Newman, and JMeter",
+            },
+            {
+                title : 'QUALITY ASSURANCE - FREELANCE',
+                company : "PT. FINNET INDONESIA",
+                workExperienceLocation : "JAKARTA",
+                duration : "Jan 2024 – Jan 2026",
+                description : "Created and executed automated test cases for functional Web UI testing using Katalon Studio and Newman",
+            },
+            {
+                title : 'SOFTWARE TESTER',
+                company : "PT. KNITTO TEKSTIL INDONESIA",
+                workExperienceLocation : "BANDUNG",
+                duration : "Jan 2024 – Oct 2024",
+                description : "Understand the flowchart, design UI, and Business Requirements Document (BRD) prepared by the system analyst.",
+            },
+            {
+                title : 'QUALITY ASSURANCE AND ANALYST',
+                company : "PROFILE IMAGE STUDIO",
+                workExperienceLocation : "MALANG",
+                duration : "Oct 2022 – Dec 2023",
+                description : "Design 3 documents requirement such as PRD, UML Diagram, and Flowchart for 2 government project Batu City and Public Worksand Water Resources Department East Java",
+            },
+        ]
+
+        console.log ("experience length",experience.length);
+
+        for(let i=0; i < experience.length; i++){
+            if(i >= await this.cardExperience.count()){
+                console.log ("cardExperience length", await this.cardExperience.count());
+                await this.buttonAdd.click();
+                await this.cardExperience.nth(i).waitFor();
+            }
+
+            const data = experience[i];
+
+            await this.jobTitle.nth(i).fill(data.title);
+            await this.company.nth(i).fill(data.company);
+            await this.workExperienceLocation.nth(i).fill(data.workExperienceLocation);
+            await this.duration.nth(i).fill(data.duration);
+            await this.description.nth(i).fill(data.description);
+        }
+        await this.globals.takeScreenshot('CVGenerator-work-experience');
+        await this.buttonNext.click();
     }
 };
