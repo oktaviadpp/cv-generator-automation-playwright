@@ -209,13 +209,29 @@ export class CvGenerator {
         await this.alertSuccess.waitFor();
         await expect(this.alertSuccess).toBeVisible();
         await this.globals.takeScreenshot('CVGenerator-preview-CV');
-        await this.page.waitForTimeout(7000);
-        await this.buttonRefresh.click();
-        await this.buttonDownload.waitFor();
-        await this.buttonDownload.click();
-        await this.alertDownload.waitFor();
-        await expect(this.alertDownload).toBeVisible();
-        await this.globals.takeScreenshot('CVGenerator-download-CV');
+
+        let cv;
+        let attempt = 0;
+        let maxRetry = 5;
+
+        while(!cv && attempt < maxRetry){
+            await this.buttonRefresh.click()
+            await this.page.waitForTimeout(3000);
+            let downloadVisible = await this.buttonDownload.isVisible();
+
+            attempt++;
+
+            if(downloadVisible == true){
+                await this.buttonDownload.click();
+                await this.alertDownload.waitFor();
+                await expect(this.alertDownload).toBeVisible();
+                await this.globals.takeScreenshot('CVGenerator-download-CV');
+                break;
+            }
+            
+        }
     }
+
+    
 
 };

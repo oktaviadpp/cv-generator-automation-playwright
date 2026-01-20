@@ -6,7 +6,7 @@ class ApiUtils{
     }
 
     async getUserCode(){
-        const response = await this.apiContext.get('https://cv.review.aforsy.my.id/api/get-code');
+        const response = await this.apiContext.get('https://api.cv.review.aforsy.my.id/api/get-code');
         if(!response.ok){
             throw new Error(`Get Code Failed: ${response.message()}`);
         }

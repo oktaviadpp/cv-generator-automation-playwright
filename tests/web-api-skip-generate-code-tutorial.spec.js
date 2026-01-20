@@ -19,6 +19,8 @@ test('01-generate cv without generate code and tutorial successfully', async ({p
     await cvGenerator.Education();
     await cvGenerator.ProjectCertification();
     await cvGenerator.Skill();
-    await cvGenerator.GenerateDownloadCV();
+
+    const downloadCV = new CvGenerator (page, apiContext);
+    await downloadCV.GenerateDownloadCV();
 
 });
