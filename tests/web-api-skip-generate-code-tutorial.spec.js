@@ -14,7 +14,6 @@ test('01-generate cv without generate code and tutorial successfully', async ({p
     const cvGenerator = new CvGenerator(page);
     
     //Generate CV Process
-    await page.goto('https://cv.review.aforsy.my.id/');
     await cvGenerator.BuildYourCV();
 
 });

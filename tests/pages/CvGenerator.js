@@ -1,7 +1,10 @@
+import {Globals} from "./Globals.js";
+
 export class CvGenerator {
     constructor (page){
         this.page = page;
         this.buttonNext = page.getByRole("button", {name:"Next"});
+        this.globals = new Globals(page);
 
         //Personal Info
         this.name = page.locator("#name");
@@ -20,6 +23,7 @@ export class CvGenerator {
     }
 
     async BuildYourCV(){
+        await this.globals.goto();
         await this.buttonMenuBuildYourCV.click();
         await this.name.fill("Oktavia Dwi Putri Permatasari");
         await this.email.fill("oktaviadwiputri506@gmail.com");
@@ -30,6 +34,8 @@ export class CvGenerator {
         await this.portfolio.fill("https://github.com/oktaviadpp");
         await this.summary.fill("I am an Information System graduate and have over 1,5+ years of work experience Quality Assurance and Software Tester. Proficient in various testing methodologies, including manual and automation testing, with expertise in utilizing tools such as Katalon for automation. Skilled in API testing, performance testing, test case development, and bug reporting. Experience in preparing design documents for several government projects. Committed to continuous learning and improvement to stay updated with the latest technologies and industry best practices in Quality Assurance.");
         await this.languages.fill("Indonesia");
+        await this.globals.takeScreenshot('CVGenerator-personal-info');
         await this.buttonNext.click();
+
     }
 };
