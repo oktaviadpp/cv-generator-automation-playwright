@@ -72,13 +72,23 @@ The automation is built using **Playwright Test** with **Page Object Model (POM)
 
 ## ⚙️ Setup & Installation
 
-### 1️⃣ Install dependencies
+### 1. Install dependencies
 Make sure Node.js is already installed on your machine.
 
 ```bash
 npm install
-
+```
+### 2. Install Playwright browsers
 ```bash
 npx playwright install
+```
+### 3. Run all tests
+```bash
+npx playwright test
+```
+### 4. Run a specific test file
+```bash
+npx playwright test tests/web-api-skip-generate-code-tutorial.spec.js --headed
+```
 
 
