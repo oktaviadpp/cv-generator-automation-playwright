@@ -25,6 +25,7 @@ export default defineConfig({
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  timeout : 120_000,
   use: {
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
@@ -34,9 +35,12 @@ export default defineConfig({
     trace: 'on',
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
+    actionTimeout: 20_000,
+    navigationTimeout: 30_000,
     launchOptions: {
       slowMo: 800,        // ini set slow-mo
     },
+    acceptDownloads: true
   },
 
   /* Configure projects for major browsers */
@@ -44,7 +48,7 @@ export default defineConfig({
     {
       name: 'chromium',
       use: { ...devices['Desktop Chrome'] },
-    },
+    } ,
 
     // {
     //   name: 'firefox',

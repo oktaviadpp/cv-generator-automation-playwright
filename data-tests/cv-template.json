@@ -1,0 +1,206 @@
+{
+  "code": "OKTAVIA-DPP",
+  "personalInfo": {
+    "name": "Oktavia Dwi Putri Permatasari",
+    "contacts": [
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/oktaviadpp/"
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/oktaviadpp"
+      },
+      {
+        "label": "Email",
+        "url": "mailto:oktaviadwiputri506@gmail.com"
+      }
+    ],
+    "summary": "Quality Assurance Engineer with 2+ years of experience in manual and automation testing. Strong expertise in API testing using Postman & Newman, web automation using Katalon Studio, and comprehensive QA documentation. Experienced in banking, fintech, government, and enterprise projects."
+  },
+  "professional": [
+    {
+      "title": "Work Experience",
+      "items": [
+        {
+          "title": "Quality Assurance Analyst",
+          "subtitle": "PT Metrocom Jaddi Technology (Placement: Bank BTN)",
+          "location": "Jakarta, Indonesia",
+          "date": "Oct 2024 - Present",
+          "description": "QA Analyst responsible for API quality and documentation in banking systems.",
+          "bullets": [
+            "Developed and executed automated API test scenarios using Postman and Newman based on ASPI standards",
+            "Reviewed BRD, flowchart, and UI design to understand system requirements",
+            "Validated API request-response data flow and integration",
+            "Managed bug lifecycle and coordinated fixes with developers",
+            "Maintained API specifications and converted SOAP UI collections to Postman"
+          ],
+          "tags": ["QA", "API Testing", "Postman", "Newman", "Banking"]
+        },
+        {
+          "title": "Quality Assurance (Freelance)",
+          "subtitle": "PT Finnet Indonesia",
+          "location": "Jakarta, Indonesia",
+          "date": "Jan 2024 - Present",
+          "description": "Freelance QA supporting web and API testing for fintech applications.",
+          "bullets": [
+            "Designed and executed functional test scenarios",
+            "Performed web UI automation testing using Katalon Studio",
+            "Built API automation tests using Postman and Newman",
+            "Generated HTML test reports for stakeholders",
+            "Managed QA projects using Git for collaboration"
+          ],
+          "tags": ["QA", "Automation Testing", "Katalon", "Fintech"]
+        },
+        {
+          "title": "Software Tester",
+          "subtitle": "PT Knitto Tekstil Indonesia",
+          "location": "Bandung, Indonesia",
+          "date": "Jan 2024 - Oct 2024",
+          "description": "Handled QA processes for internal enterprise applications.",
+          "bullets": [
+            "Created test cases for 7+ internal applications",
+            "Executed testing for 2+ new features weekly",
+            "Reviewed BRD, flowchart, and UI designs",
+            "Reported bugs and managed bug lifecycle with developers"
+          ],
+          "tags": ["Manual Testing", "Test Case", "Enterprise App"]
+        },
+        {
+          "title": "Quality Assurance & Analyst",
+          "subtitle": "Profile Image Studio",
+          "location": "Malang, Indonesia",
+          "date": "Oct 2022 - Dec 2023",
+          "description": "QA and system analyst for government and enterprise projects.",
+          "bullets": [
+            "Designed 100+ test scenarios for mobile and web applications",
+            "Executed manual testing for government projects",
+            "Managed bug reports for frontend, backend, and design teams",
+            "Created PRD, UML, and flowchart documents",
+            "Collected and maintained government project documentation"
+          ],
+          "tags": ["QA", "System Analyst", "Government Project"]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "title": "Education",
+      "items": [
+        {
+          "degree": "Bachelor of Information Systems",
+          "school": "Open University (UT)",
+          "year": "2025 - Present",
+          "gpa": null,
+          "details": null
+        },
+        {
+          "degree": "Diploma in Information System",
+          "school": "Universitas Brawijaya",
+          "year": "2019 - 2023",
+          "gpa": "3.86",
+          "details": null
+        }
+      ]
+    }
+  ],
+  "organisational": [
+    {
+      "title": "Organisational Experience",
+      "items": [
+        {
+          "title": "Lead Mentor",
+          "organization": "Social Economy Accelerator Lab (SEAL)",
+          "date": "Aug 2022 - Dec 2022",
+          "description": "Led mentoring and learning programs for Laravel classes."
+        },
+        {
+          "title": "Assistant Mentor",
+          "organization": "Social Economy Accelerator Lab (SEAL)",
+          "date": "Feb 2023 - Jul 2023",
+          "description": "Mentored 25 mentees and supported final projects."
+        }
+      ]
+    }
+  ],
+  "others": [
+    {
+      "title": "Technical Skills",
+      "template": "skills",
+      "items": [
+        {
+          "category": "Quality Assurance",
+          "list": "Manual Testing, Automation Testing, Test Case Design, Bug Reporting"
+        },
+        {
+          "category": "Automation Tools",
+          "list": "Katalon Studio, Selenium, Appium, Playwright"
+        },
+        {
+          "category": "API Testing",
+          "list": "Postman, Newman, JMeter"
+        },
+        {
+          "category": "Backend & Database",
+          "list": "Laravel, AdonisJS, PHP, MySQL, PostgreSQL"
+        },
+        {
+          "category": "Tools & Methodology",
+          "list": "Git, Scrum, Agile"
+        }
+      ]
+    },
+    {
+      "title": "Projects",
+      "template": "projects",
+      "items": [
+        {
+          "title": "API Automation Testing",
+          "subtitle": "Postman & Newman",
+          "date": "",
+          "description": "Automated API testing project with reporting.",
+          "bullets": [
+            "API automation using Newman",
+            "Generated automated test reports"
+          ],
+          "tags": ["API Testing", "Postman", "Newman"],
+          "documentUrl": "https://github.com/oktaviadpp/api-automation-test-newman",
+          "linkLabel": "View Repository"
+        },
+        {
+          "title": "Web Automation Testing",
+          "subtitle": "Playwright",
+          "date": "",
+          "description": "End-to-end web automation testing project.",
+          "bullets": [
+            "E2E automation using Playwright",
+            "Structured test scenarios"
+          ],
+          "tags": ["Automation", "Playwright"],
+          "documentUrl": "https://github.com/oktaviadpp/playwright-e2e-automation",
+          "linkLabel": "View Repository"
+        }
+      ]
+    },
+    {
+      "title": "Certifications & Training",
+      "template": "certifications",
+      "items": [
+        {
+          "title": "Quality Assurance Automation",
+          "date": "May 2023 - Aug 2023",
+          "issuer": "Binar Academy",
+          "description": "Automation testing, API testing, performance testing, and QA collaboration",
+          "credentialId": null,
+          "documentUrl": null
+        }
+      ]
+    },
+    {
+      "title": "Languages",
+      "template": "text",
+      "content": "Indonesian (Native), English (Professional)"
+    }
+  ]
+}

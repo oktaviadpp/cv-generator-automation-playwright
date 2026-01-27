@@ -32,3 +32,4 @@ test ('01-generate cv successfullt', async ({page})=> {
     await buttonMenuBuildYourCV.click();
     await expect(buttonNext).toBeVisible();
 });
+

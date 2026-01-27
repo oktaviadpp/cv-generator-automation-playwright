@@ -1,9 +1,13 @@
 import { expect } from "@playwright/test";
 import {Globals} from "./Globals.js";
+import { faker } from "@faker-js/faker";
+import path from 'path';
+import fs from 'fs';
 
 export class CvGenerator {
     constructor (page){
         this.page = page;
+        faker.locale = 'id_ID';
         this.buttonNext = page.getByRole("button", {name:"Next"});
         this.globals = new Globals(page);
         this.buttonAdd = page.getByRole('button', { name: 'Add', exact: true });
@@ -20,13 +24,6 @@ export class CvGenerator {
         this.summary = page.locator("#summary");
         this.languages = page.locator("#languages");
         this.buttonMenuBuildYourCV = page.getByRole("link", {name:"Build Your CV"});
-
-        //Work Experience
-        this.jobTitle = page.locator('input[name$=".title"]');
-        this.company = page.locator('input[name$=".company"]');
-        this.workExperienceLocation = page.locator('input[name$=".location"]');
-        this.duration = page.locator('input[name$=".duration"]');
-        this.description = page.locator('textarea[name$=".description"]');
         
         //Education 
         this.degree = page.locator("input[name$='.degree']");
@@ -49,81 +46,77 @@ export class CvGenerator {
         this.skillDatabases = page.locator('input[name$="Databases"]');
         this.skillTools = page.locator('input[name$="Tools & Technologies"]');
         this.skillOtherSkills = page.locator('input[name$="Other Skills"]');
-        this.buttonGenerateResume = page.getByRole('button', {name:"Generate Resume"})
+        this.buttonGenerateResume = page.getByRole('button', { name: 'Generate Resume' }).nth(1);
 
         //CV Preview
         this.buttonRefresh = page.getByRole('button', {name:"Refresh"});
         this.buttonDownload = page.getByRole('button', {name:"Download"});
         this.alertSuccess = page.locator('div.opacity-90:has-text("CV list refreshed successfully.")');
         this.alertDownload = page.locator('div.text-sm:has-text("Download Started")');
+
+        //Import CV 
+        this.buttonImport = page.getByRole('button', {name:"Import"});
+        this.uploadImport = page.locator('label input[type="file"][accept=".json"]');
+        this.alertImportSuccess = page.locator('div.opacity-90:has-text("Form fields have been populated.")');
+        this.buttonReview = page.getByRole('button', { name: 'Review', exact: true });
+        
     }
 
     async PersonalInfo(){
+        const fakerName = faker.person.fullName();
+        const fakerEmail = faker.internet.email();
+        const fakerPhone = faker.phone.number({ style: 'international' });
+        const normalizePhone = fakerPhone.replace(/[\s-]/g, '');
+        const fakerLocation = faker.location.city();
+        const fakerNameForUrl = fakerName.toLowerCase().replace(/\s+/g, '-');
+        const fakerLinkedln = `https://www.linkedin.com/in/${fakerNameForUrl}`;
+        const fakerGithub = `https://github.com/${fakerNameForUrl}`;
+        const fakerPortfolio = `https://github.com/${fakerNameForUrl}`;
+        const fakerSummary = faker.lorem.paragraph();
+        const fakerLanguages = faker.location.country();
+
         await this.globals.goto();
         await this.buttonMenuBuildYourCV.click();
-        await this.name.fill("Oktavia Dwi Putri Permatasari");
-        await this.email.fill("oktaviadwiputri506@gmail.com");
-        await this.phone.fill("082311439450");
-        await this.location.fill("Jakarta");
-        await this.linkedin.fill("https://www.linkedin.com/in/oktaviadpp/");
-        await this.github.fill("https://github.com/oktaviadpp");
-        await this.portfolio.fill("https://github.com/oktaviadpp");
-        await this.summary.fill("I am an Information System graduate and have over 1,5+ years of work experience Quality Assurance and Software Tester. Proficient in various testing methodologies, including manual and automation testing, with expertise in utilizing tools such as Katalon for automation. Skilled in API testing, performance testing, test case development, and bug reporting. Experience in preparing design documents for several government projects. Committed to continuous learning and improvement to stay updated with the latest technologies and industry best practices in Quality Assurance.");
-        await this.languages.fill("Indonesia");
+        await this.name.fill(fakerName);
+        await this.email.fill(fakerEmail);
+        await this.phone.fill(normalizePhone);
+        await this.location.fill(fakerLocation);
+        await this.linkedin.fill(fakerLinkedln);
+        await this.github.fill(fakerGithub);
+        await this.portfolio.fill(fakerPortfolio);
+        await this.summary.fill(fakerSummary);
+        await this.languages.fill(fakerLanguages);
         await this.globals.takeScreenshot('CVGenerator-personal-info');
         await this.buttonNext.click();
     }
 
     async WorkExperience(){
         //define experience data
-        const experience = [
-            {
-                title : 'Quality Assurance Analyst',
-                company : "PT. METROCOM JADDI TECHNOLOGY",
-                workExperienceLocation : "JAKARTA",
-                duration : "Oct 2024 – Present",
-                description : "Developed and executed automated API test scenarios using Postman, Newman, and JMeter",
-            },
-            {
-                title : 'QUALITY ASSURANCE - FREELANCE',
-                company : "PT. FINNET INDONESIA",
-                workExperienceLocation : "JAKARTA",
-                duration : "Jan 2024 – Jan 2026",
-                description : "Created and executed automated test cases for functional Web UI testing using Katalon Studio and Newman",
-            },
-            {
-                title : 'SOFTWARE TESTER',
-                company : "PT. KNITTO TEKSTIL INDONESIA",
-                workExperienceLocation : "BANDUNG",
-                duration : "Jan 2024 – Oct 2024",
-                description : "Understand the flowchart, design UI, and Business Requirements Document (BRD) prepared by the system analyst.",
-            },
-            {
-                title : 'QUALITY ASSURANCE AND ANALYST',
-                company : "PROFILE IMAGE STUDIO",
-                workExperienceLocation : "MALANG",
-                duration : "Oct 2022 – Dec 2023",
-                description : "Design 3 documents requirement such as PRD, UML Diagram, and Flowchart for 2 government project Batu City and Public Worksand Water Resources Department East Java",
-            },
-        ];
+        const title = ['Software Engineer', 'QA Engineer', 'Product Manager', 'DevOps', 'Data Analyst']
+        const company = ['Google', 'Microsoft', 'Meta', 'Netflix', 'Tesla'];
 
-        console.log ("experience length",experience.length);
-
+        const maxRetry = 5;
         //looping card input by experiece.length
-        for(let i=0; i < experience.length; i++){
+        for(let i=0; i < maxRetry; i++){
+            const fakerTitle = faker.helpers.arrayElement(title);
+            const fakerCompany = faker.helpers.arrayElement(company);
+            const fakerWorkLocation = faker.location.city();
+            const fakerDuration = faker.date.month();
+            const fakerDescription = faker.lorem.sentence();
+
             if(i >= await this.cardInput.count()){
                 console.log ("cardExperience length", await this.cardInput.count());
                 await this.buttonAdd.click();
-                await expect(this.cardInput).toHaveCount(i+1);
+                // await expect(this.cardInput).toHaveCount(i+1);
+                await this.cardInput.nth(i).waitFor({state: 'visible'});
             }
 
-            const data = experience[i];
-
-            await this.jobTitle.nth(i).fill(data.title);
-            await this.company.nth(i).fill(data.company);
-            await this.workExperienceLocation.nth(i).fill(data.workExperienceLocation);
-            await this.duration.nth(i).fill(data.duration);
-            await this.description.nth(i).fill(data.description);
+            const card = this.cardInput.nth(i);
+            await card.locator('input[name$=".title"]').fill(fakerTitle);
+            await card.locator('input[name$=".company"]').fill(fakerCompany);
+            await card.locator('input[name$=".location"]').fill(fakerWorkLocation);
+            await card.locator('input[name$=".duration"]').fill(fakerDuration);
+            await card.locator('textarea[name$=".description"]').fill(fakerDescription);;
         }
         await this.globals.takeScreenshot('CVGenerator-work-experience');
         await this.buttonNext.click();
@@ -204,7 +197,7 @@ export class CvGenerator {
         await this.globals.takeScreenshot('CVGenerator-skill');
     }
 
-    async GenerateDownloadCV(){
+    async GenerateDownloadCV(testInfo, filename){
         await this.buttonGenerateResume.click(); 
         await this.alertSuccess.waitFor();
         await expect(this.alertSuccess).toBeVisible();
@@ -222,16 +215,46 @@ export class CvGenerator {
             attempt++;
 
             if(downloadVisible == true){
-                await this.buttonDownload.click();
+                const [ download ] = await Promise.all([
+                    this.page.waitForEvent('download'),
+                    this.buttonDownload.click()
+                ]);
+
+                const downloadDir = path.resolve('downloads');
+                if (!fs.existsSync(downloadDir)) {
+                    fs.mkdirSync(downloadDir, { recursive: true });
+                
+                }
+                const fileName = download.suggestedFilename();
+                console.log('fileName',fileName);
+                
+                const filePath = path.join(downloadDir, fileName);
+                console.log("Download saved to =", filePath);
+
+                await download.saveAs(filePath);
+
                 await this.alertDownload.waitFor();
                 await expect(this.alertDownload).toBeVisible();
                 await this.globals.takeScreenshot('CVGenerator-download-CV');
-                break;
+               
+                return {
+                    filePath,
+                    fileName: filePath
+                };
             }
             
-        }
+        }        
     }
 
-    
-
+    async importCV(){
+        await this.globals.goto();
+        await this.buttonMenuBuildYourCV.click();
+        const filePath = path.resolve(__dirname, '../../data-tests/cv-template.json');
+        // await this.buttonImport.click();
+        await this.uploadImport.waitFor({state : 'attached'});
+        await this.uploadImport.setInputFiles(filePath);
+        await expect(this.alertImportSuccess).toBeVisible();
+        await this.globals.takeScreenshot('Import-CV');
+        await this.buttonReview.click();
+    }
 };
