@@ -59,6 +59,11 @@ export class CvGenerator {
         this.uploadImport = page.locator('label input[type="file"][accept=".json"]');
         this.alertImportSuccess = page.locator('div.opacity-90:has-text("Form fields have been populated.")');
         this.buttonReview = page.getByRole('button', { name: 'Review', exact: true });
+
+        //New Tab HTML
+        this.buttonHtml = page.getByRole('button', {name:"HTML"});
+        this.nameCv = page.locator('h3.font-medium');
+        this.nameCvNewTab = page.locator('.personal-info h1');
         
     }
 
@@ -197,7 +202,7 @@ export class CvGenerator {
         await this.globals.takeScreenshot('CVGenerator-skill');
     }
 
-    async GenerateDownloadCV(testInfo, filename){
+    async GenerateDownloadCV(){
         await this.buttonGenerateResume.click(); 
         await this.alertSuccess.waitFor();
         await expect(this.alertSuccess).toBeVisible();
@@ -250,11 +255,35 @@ export class CvGenerator {
         await this.globals.goto();
         await this.buttonMenuBuildYourCV.click();
         const filePath = path.resolve(__dirname, '../../data-tests/cv-template.json');
-        // await this.buttonImport.click();
         await this.uploadImport.waitFor({state : 'attached'});
         await this.uploadImport.setInputFiles(filePath);
         await expect(this.alertImportSuccess).toBeVisible();
         await this.globals.takeScreenshot('Import-CV');
         await this.buttonReview.click();
+    }
+
+    async newTabHtml(){
+        await this.buttonGenerateResume.click();
+        await this.page.waitForTimeout(3000); 
+        await this.alertSuccess.waitFor();
+        await expect(this.alertSuccess).toBeVisible();
+
+        const CvName = await this.nameCv.textContent();
+        console.log ('CvName :', CvName);
+        await this.buttonHtml.click();
+        const [newTab] = await Promise.all([
+        this.page.waitForEvent('popup'),
+        this.buttonHtml.click()
+        ]);
+
+        await newTab.waitForLoadState();
+        const h1NewTab = newTab.locator('.personal-info h1');
+
+        await expect(h1NewTab).toBeVisible();
+
+        const name = await h1NewTab.innerText();
+        console.log('H1 NEW TAB:', name);
+        expect(name).toContain(CvName);
+        await this.globals.takeScreenshot('New-Tab-CV');
     }
 };

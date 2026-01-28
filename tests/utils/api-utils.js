@@ -21,7 +21,7 @@ class ApiUtils{
             localStorage.setItem('hasValidatedCode', 'true');
             localStorage.setItem('hasSeenTutorial', 'true');
             localStorage.setItem('tutorialCompleted', 'true');
-            localStorage.setItem('userCode', code);
+            localStorage.setItem('userCode', 'oktacantik');
         }, userCode);
     }
 }
