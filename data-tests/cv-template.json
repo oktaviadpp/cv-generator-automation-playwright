@@ -5,15 +5,15 @@
     "contacts": [
       {
         "label": "LinkedIn",
-        "url": "https://www.linkedin.com/in/oktaviadpp/"
+        "url": "linkedin.com/in/oktaviadpp/"
       },
       {
         "label": "GitHub",
-        "url": "https://github.com/oktaviadpp"
+        "url": "github.com/oktaviadpp"
       },
       {
         "label": "Email",
-        "url": "mailto:oktaviadwiputri506@gmail.com"
+        "url": "oktaviadwiputri506@gmail.com"
       }
     ],
     "summary": "Quality Assurance Engineer with 2+ years of experience in manual and automation testing. Strong expertise in API testing using Postman & Newman, web automation using Katalon Studio, and comprehensive QA documentation. Experienced in banking, fintech, government, and enterprise projects."
